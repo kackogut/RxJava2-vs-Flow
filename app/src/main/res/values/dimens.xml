@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_view_big">24sp</dimen>
+    <dimen name="text_view_medium">16sp</dimen>
+
+    <dimen name="base_margin_very_small">4dp</dimen>
+    <dimen name="base_margin_small">8dp</dimen>
+    <dimen name="base_margin_medium">16dp</dimen>
+    <dimen name="base_margin_big">32dp</dimen>
+
+    <dimen name="launch_image_thumbnail">72dp</dimen>
+    <dimen name="launch_image">124dp</dimen>
+
+    <dimen name="error_image">62dp</dimen>
+
+    <dimen name="card_view_base_radius">16dp</dimen>
+
+    <dimen name="progress_bar_size">64dp</dimen>
+</resources>

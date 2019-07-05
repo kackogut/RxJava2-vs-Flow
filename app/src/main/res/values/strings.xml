@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name" translatable="false">Launch Me</string>
+
+    <string name="launches">Launches</string>
+    <string name="success">Success</string>
+    <string name="failure">Failure</string>
+    <string name="upcoming">Upcoming</string>
+
+    <string name="details">Details</string>
+    <string name="launch_site">Launch site</string>
+    <string name="rocket_name">Rocket name</string>
+    <string name="rocket_type">Rocket type</string>
+    <string name="mission_name">Mission name</string>
+
+    <string name="error_occurred">Error occurred</string>
+    <string name="tap_to_try_again">Tap to try again</string>
+
+    <string name="content_description_launch_image_thumbnail">Launch mission patch image thumbnail</string>
+    <string name="content_description_launch_image">Launch mission patch image</string>
+    <string name="content_description_error_image">Error image</string>
+
+</resources>
