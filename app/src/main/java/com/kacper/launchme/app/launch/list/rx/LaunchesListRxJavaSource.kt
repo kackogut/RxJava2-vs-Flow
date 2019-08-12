@@ -1,4 +1,4 @@
-package com.kacper.launchme.app.launch.list
+package com.kacper.launchme.app.launch.list.rx
 
 import androidx.databinding.ObservableField
 import androidx.paging.PositionalDataSource
@@ -9,7 +9,7 @@ import com.kacper.launchme.repository.AppRepository
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
-class LaunchesListSource(
+class LaunchesListRxJavaSource(
     private val compositeDisposable: CompositeDisposable,
     private val appRepository: AppRepository,
     private val state: ObservableField<BaseState>

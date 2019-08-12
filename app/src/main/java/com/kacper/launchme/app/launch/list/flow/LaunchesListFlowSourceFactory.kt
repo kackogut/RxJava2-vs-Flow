@@ -1,4 +1,4 @@
-package com.kacper.launchme.app.launch.list
+package com.kacper.launchme.app.launch.list.flow
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
@@ -8,23 +8,22 @@ import com.kacper.launchme.data.launch.Launch
 import com.kacper.launchme.repository.AppRepository
 import io.reactivex.disposables.CompositeDisposable
 
-class LaunchesListSourceFactory(
-    private val compositeDisposable: CompositeDisposable,
+class LaunchesListFlowSourceFactory(
     private val appRepository: AppRepository,
     private val state: ObservableField<BaseState>
 ) : DataSource.Factory<Int, Launch>() {
 
-    private val launchListLiveData = MutableLiveData<LaunchesListSource>()
-    private var launchListSource: LaunchesListSource? = null
+    private val launchListLiveData = MutableLiveData<LaunchesListFlowSource>()
+    private var launchListFlowSource: LaunchesListFlowSource? = null
 
     override fun create(): DataSource<Int, Launch> {
-        launchListSource =
-            LaunchesListSource(compositeDisposable, appRepository, state)
-        launchListLiveData.postValue(launchListSource)
-        return launchListSource!!
+        launchListFlowSource =
+            LaunchesListFlowSource( appRepository, state)
+        launchListLiveData.postValue(launchListFlowSource)
+        return launchListFlowSource!!
     }
 
     fun invalidate() {
-        launchListSource?.invalidate()
+        launchListFlowSource?.invalidate()
     }
 }

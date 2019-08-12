@@ -10,4 +10,7 @@ interface SpaceXService {
 
     @GET("launches")
     fun getLaunches(@QueryMap request: Map<String, Int>): Single<ArrayList<Launch>>
+
+    @GET("launches")
+    suspend fun getFlowLaunches(@QueryMap request: Map<String, Int>): ArrayList<Launch>
 }

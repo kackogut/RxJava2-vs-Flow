@@ -5,7 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.kacper.launchme.app.launch.list.LaunchesListSourceFactory
+import com.kacper.launchme.app.launch.list.flow.LaunchesListFlowSourceFactory
+import com.kacper.launchme.app.launch.list.rx.LaunchesListRxJavaSourceFactory
 import com.kacper.launchme.data.BaseState
 import com.kacper.launchme.data.launch.Launch
 import com.kacper.launchme.repository.AppRepository
@@ -18,7 +19,7 @@ class LaunchViewModel @Inject constructor(
 ) : ViewModel() {
 
     var launchesList: LiveData<PagedList<Launch>>? = null
-    private var launchesListsFactory: LaunchesListSourceFactory? = null
+    private var launchesListsFactoryRxJava: LaunchesListFlowSourceFactory? = null
 
     private val disposable = CompositeDisposable()
 
@@ -27,12 +28,13 @@ class LaunchViewModel @Inject constructor(
     var state = ObservableField<BaseState>(BaseState.Loading)
 
     fun initLaunchesList() {
-        if (launchesList != null && launchesListsFactory != null) return
+        if (launchesList != null && launchesListsFactoryRxJava != null) return
 
-        launchesListsFactory = LaunchesListSourceFactory(disposable, appRepository, state)
+        launchesListsFactoryRxJava =
+            LaunchesListFlowSourceFactory( appRepository, state)
 
         launchesList = LivePagedListBuilder<Int, Launch>(
-            launchesListsFactory!!,
+            launchesListsFactoryRxJava!!,
             Utils.getDefaultPagedListConfig()
         ).build()
 
@@ -40,7 +42,7 @@ class LaunchViewModel @Inject constructor(
 
     fun onErrorLaunchListCallback() {
         state.set(BaseState.Loading)
-        launchesListsFactory?.invalidate()
+        launchesListsFactoryRxJava?.invalidate()
     }
 
     override fun onCleared() {
