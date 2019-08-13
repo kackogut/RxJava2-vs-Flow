@@ -29,6 +29,12 @@ class LaunchesListFragment : Fragment(), Injectable {
 
     private lateinit var launchesAdapter: LaunchesAdapter
 
+    private val onDataSourceChangeCallback = object : Observable.OnPropertyChangedCallback() {
+        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+            initList()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,16 +45,22 @@ class LaunchesListFragment : Fragment(), Injectable {
 
         launchListBinding.viewModel = launchViewModel
 
-        initList(launchListBinding)
-        initViewModelListener(launchListBinding)
+        initAdatper(launchListBinding)
+        initList()
+        initViewModelListener()
 
         return launchListBinding.root
     }
 
-    private fun initList(launchListBinding: FragmentLaunchListBinding) {
-
+    private fun initList() {
         launchViewModel.initLaunchesList()
 
+        launchViewModel.launchesList?.observe(this, Observer {
+            launchesAdapter.submitList(it)
+        })
+    }
+
+    private fun initAdatper(launchListBinding: FragmentLaunchListBinding) {
         launchesAdapter = LaunchesAdapter { launch ->
             launchViewModel.currentLaunch = launch
             findNavController().navigateWithTransition(
@@ -57,19 +69,14 @@ class LaunchesListFragment : Fragment(), Injectable {
         }
 
         launchListBinding.rvBaseLayout.adapter = launchesAdapter
-
-        launchViewModel.launchesList?.observe(this, Observer {
-            launchesAdapter.submitList(it)
-        })
-
-
     }
 
-    private fun initViewModelListener(launchListBinding: FragmentLaunchListBinding){
-        launchViewModel.isFlowEnabled.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                initList(launchListBinding)
-            }
-        })
+    private fun initViewModelListener() {
+        launchViewModel.isFlowEnabled.addOnPropertyChangedCallback(onDataSourceChangeCallback)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        launchViewModel.isFlowEnabled.removeOnPropertyChangedCallback(onDataSourceChangeCallback)
     }
 }

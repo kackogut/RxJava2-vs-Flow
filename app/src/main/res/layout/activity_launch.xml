@@ -18,7 +18,9 @@
                       app:layout_constraintTop_toTopOf="parent"
                       android:id="@+id/toolbar_launch">
 
-            <ToggleButton android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            <ToggleButton
+                    android:id="@+id/tb_change_data_source"
+                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
                           android:textOff="@string/rxjava" android:textOn="@string/flow"
                           android:background="@drawable/background_round_corners"
                           android:textColor="@color/colorWhite"
