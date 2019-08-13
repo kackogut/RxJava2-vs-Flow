@@ -18,5 +18,7 @@
     <string name="content_description_launch_image_thumbnail">Launch mission patch image thumbnail</string>
     <string name="content_description_launch_image">Launch mission patch image</string>
     <string name="content_description_error_image">Error image</string>
+    <string name="rxjava">RxJava</string>
+    <string name="flow">Flow</string>
 
 </resources>

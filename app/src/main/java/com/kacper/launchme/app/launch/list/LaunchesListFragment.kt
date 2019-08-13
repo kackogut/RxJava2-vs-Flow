@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.Observable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -37,7 +38,9 @@ class LaunchesListFragment : Fragment(), Injectable {
             FragmentLaunchListBinding.inflate(inflater, container, false)
 
         launchListBinding.viewModel = launchViewModel
+
         initList(launchListBinding)
+        initViewModelListener(launchListBinding)
 
         return launchListBinding.root
     }
@@ -57,6 +60,16 @@ class LaunchesListFragment : Fragment(), Injectable {
 
         launchViewModel.launchesList?.observe(this, Observer {
             launchesAdapter.submitList(it)
+        })
+
+
+    }
+
+    private fun initViewModelListener(launchListBinding: FragmentLaunchListBinding){
+        launchViewModel.isFlowEnabled.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                initList(launchListBinding)
+            }
         })
     }
 }

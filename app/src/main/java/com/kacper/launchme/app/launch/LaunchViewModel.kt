@@ -1,12 +1,12 @@
 package com.kacper.launchme.app.launch
 
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.kacper.launchme.app.launch.list.flow.LaunchesListFlowSourceFactory
-import com.kacper.launchme.app.launch.list.rx.LaunchesListRxJavaSourceFactory
+import com.kacper.launchme.app.launch.list.LaunchesListSourceFactory
 import com.kacper.launchme.data.BaseState
 import com.kacper.launchme.data.launch.Launch
 import com.kacper.launchme.repository.AppRepository
@@ -19,7 +19,7 @@ class LaunchViewModel @Inject constructor(
 ) : ViewModel() {
 
     var launchesList: LiveData<PagedList<Launch>>? = null
-    private var launchesListsFactoryRxJava: LaunchesListFlowSourceFactory? = null
+    private var launchesListsFactoryRxJava: LaunchesListSourceFactory? = null
 
     private val disposable = CompositeDisposable()
 
@@ -27,11 +27,10 @@ class LaunchViewModel @Inject constructor(
 
     var state = ObservableField<BaseState>(BaseState.Loading)
 
-    fun initLaunchesList() {
-        if (launchesList != null && launchesListsFactoryRxJava != null) return
+    var isFlowEnabled = ObservableBoolean(false)
 
-        launchesListsFactoryRxJava =
-            LaunchesListFlowSourceFactory( appRepository, state)
+    fun initLaunchesList() {
+        launchesListsFactoryRxJava = LaunchesListSourceFactory(disposable, appRepository, state, isFlowEnabled.get())
 
         launchesList = LivePagedListBuilder<Int, Launch>(
             launchesListsFactoryRxJava!!,

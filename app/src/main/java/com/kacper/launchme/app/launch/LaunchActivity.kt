@@ -34,19 +34,7 @@ class LaunchActivity : AppCompatActivity(), HasSupportFragmentInjector {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_launch)
-
-        initNavigation()
+        binding.viewModel = launchViewModel
     }
 
-    private fun initNavigation() {
-        findNavController(R.id.nav_launch_fragment).addOnDestinationChangedListener { _, destination, _ ->
-            binding.toolbarLaunch.tvToolbarTitle.text =
-                when (destination.label) {
-                    LaunchesListFragment::class.java.simpleName -> getString(R.string.launches)
-                    LaunchDetailsFragment::class.java.simpleName -> launchViewModel.currentLaunch?.missionName
-                    else -> throw UnsupportedOperationException("Road not supported: $destination")
-                }
-
-        }
-    }
 }
