@@ -1,7 +1,9 @@
 package com.kacper.launchme.repository
 
 import com.kacper.launchme.api.SpaceXService
+import com.kacper.launchme.data.launch.Launch
 import com.kacper.launchme.data.list.BaseListRequest
+import io.reactivex.Single
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
@@ -19,7 +21,10 @@ class AppRepositoryImpl @Inject constructor(private val spaceXService: SpaceXSer
         }
 
 
-    override fun getLaunchesList(request: BaseListRequest) =
+    override fun getRxJavaLaunchesList(request: BaseListRequest) =
         spaceXService.getLaunches(request.toMap())
+
+    override fun getRxJavaLaunchDetails(flightNumber: Int) =
+            spaceXService.getLaunchDetails(flightNumber)
 
 }

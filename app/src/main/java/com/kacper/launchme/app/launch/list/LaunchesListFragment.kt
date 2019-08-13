@@ -62,10 +62,7 @@ class LaunchesListFragment : Fragment(), Injectable {
 
     private fun initAdatper(launchListBinding: FragmentLaunchListBinding) {
         launchesAdapter = LaunchesAdapter { launch ->
-            launchViewModel.currentLaunch = launch
-            findNavController().navigateWithTransition(
-                R.id.action_launchListFragment_to_launchDetailsFragment
-            )
+            launchViewModel.getLaunchDetails(launch.flightNumber)
         }
 
         launchListBinding.rvBaseLayout.adapter = launchesAdapter

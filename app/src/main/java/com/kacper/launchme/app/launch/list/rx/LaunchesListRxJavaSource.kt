@@ -21,7 +21,7 @@ class LaunchesListRxJavaSource(
         baseListRequest.offset += baseListRequest.limit
 
         compositeDisposable.add(
-            appRepository.getLaunchesList(baseListRequest)
+            appRepository.getRxJavaLaunchesList(baseListRequest)
                 .subscribe({
                     callback.onResult(it)
                     state.set(BaseState.Success)
@@ -36,7 +36,7 @@ class LaunchesListRxJavaSource(
         baseListRequest.offset = 0
 
         compositeDisposable.add(
-            appRepository.getLaunchesList(baseListRequest)
+            appRepository.getRxJavaLaunchesList(baseListRequest)
                 .subscribe({
                     callback.onResult(it, 0)
                     state.set(BaseState.Success)
