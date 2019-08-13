@@ -18,7 +18,7 @@ class LaunchDetailsFragment : Fragment(), Injectable {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val launchViewModel: LaunchViewModel by lazy {
-        ViewModelProviders.of(activity!!, viewModelFactory)
+        ViewModelProviders.of(requireActivity(), viewModelFactory)
             .get(LaunchViewModel::class.java)
     }
 

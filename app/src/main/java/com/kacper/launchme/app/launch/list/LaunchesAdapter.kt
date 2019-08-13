@@ -19,7 +19,7 @@ class LaunchesAdapter(private val onItemClick: (Launch) -> (Unit)) :
 
     override fun onBindViewHolder(holder: LaunchViewHolder, position: Int) {
         val awardItem = getItem(position)
-        holder.bindTo(awardItem!!, onItemClick)
+        awardItem?.let { holder.bindTo(it, onItemClick) }
     }
 
 
