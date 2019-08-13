@@ -30,7 +30,8 @@ class LaunchViewModel @Inject constructor(
     var isFlowEnabled = ObservableBoolean(false)
 
     fun initLaunchesList() {
-        launchesListsFactoryRxJava = LaunchesListSourceFactory(disposable, appRepository, state, isFlowEnabled.get())
+        launchesListsFactoryRxJava =
+            LaunchesListSourceFactory(disposable, appRepository, state, isFlowEnabled.get())
 
         launchesList = LivePagedListBuilder<Int, Launch>(
             launchesListsFactoryRxJava!!,

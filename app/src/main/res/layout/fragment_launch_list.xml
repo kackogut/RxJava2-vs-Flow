@@ -10,7 +10,6 @@
             type="com.kacper.launchme.app.launch.LaunchViewModel"/>
     </data>
 
-
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

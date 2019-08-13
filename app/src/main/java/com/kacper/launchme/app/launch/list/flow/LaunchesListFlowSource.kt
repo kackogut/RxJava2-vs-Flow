@@ -6,10 +6,8 @@ import com.kacper.launchme.data.BaseState
 import com.kacper.launchme.data.launch.Launch
 import com.kacper.launchme.data.list.BaseListRequest
 import com.kacper.launchme.repository.AppRepository
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.runBlocking
 
 class LaunchesListFlowSource(
     private val appRepository: AppRepository,

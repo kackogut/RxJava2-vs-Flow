@@ -6,10 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
 import com.kacper.launchme.R
-import com.kacper.launchme.app.launch.details.LaunchDetailsFragment
-import com.kacper.launchme.app.launch.list.LaunchesListFragment
 import com.kacper.launchme.databinding.ActivityLaunchBinding
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
