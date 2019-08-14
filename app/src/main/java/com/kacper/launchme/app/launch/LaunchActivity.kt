@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.kacper.launchme.R
 import com.kacper.launchme.app.launch.list.LaunchState
+import com.kacper.launchme.app.launch.list.LaunchesListFragment
 import com.kacper.launchme.databinding.ActivityLaunchBinding
 import com.kacper.launchme.utils.navigateWithTransition
 import dagger.android.DispatchingAndroidInjector
@@ -39,13 +39,23 @@ class LaunchActivity : AppCompatActivity(), HasSupportFragmentInjector {
         binding.viewModel = launchViewModel
 
         launchViewModel.state.addOnPropertyChangedCallback(
-            object : Observable.OnPropertyChangedCallback(){
+            object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    if(launchViewModel.state.get() == LaunchState.OnLaunchDetailsFetched){
-                        findNavController(this@LaunchActivity, R.id.nav_launch_fragment).navigateWithTransition(
-                            R.id.action_launchListFragment_to_launchDetailsFragment
-                        )
+
+                    if (launchViewModel.state.get() == LaunchState.OnLaunchDetailsFetched) {
+                        val navController =
+                            findNavController(this@LaunchActivity, R.id.nav_launch_fragment)
+
+                        if (navController.currentDestination?.label != LaunchesListFragment::class.java.simpleName){
+
+                        } else {
+
+                            navController.navigateWithTransition(
+                                R.id.action_launchListFragment_to_launchDetailsFragment
+                            )
+                        }
                     }
+
                 }
 
             }

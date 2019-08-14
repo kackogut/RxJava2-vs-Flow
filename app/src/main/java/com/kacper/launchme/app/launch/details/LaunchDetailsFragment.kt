@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.Observable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -22,6 +23,12 @@ class LaunchDetailsFragment : Fragment(), Injectable {
             .get(LaunchViewModel::class.java)
     }
 
+    private val onDataSourceChangeCallback = object : Observable.OnPropertyChangedCallback() {
+        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+            launchViewModel.refreshLaunchDetails()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,6 +38,17 @@ class LaunchDetailsFragment : Fragment(), Injectable {
 
         launchDetailsBinding.launchViewModel = launchViewModel
 
+        initViewModelListener()
+
         return launchDetailsBinding.root
+    }
+
+    private fun initViewModelListener() {
+        launchViewModel.isFlowEnabled.addOnPropertyChangedCallback(onDataSourceChangeCallback)
+    }
+
+    override fun onDestroyView() {
+        launchViewModel.isFlowEnabled.removeOnPropertyChangedCallback(onDataSourceChangeCallback)
+        super.onDestroyView()
     }
 }

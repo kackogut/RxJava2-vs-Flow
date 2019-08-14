@@ -38,5 +38,6 @@
             android:layout_marginLeft="@dimen/base_margin_medium"
             android:layout_marginStart="@dimen/base_margin_medium"
             android:text="@{description}"/>
+
     </LinearLayout>
 </layout>

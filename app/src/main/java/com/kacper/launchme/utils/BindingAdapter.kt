@@ -45,16 +45,16 @@ fun bindVisibility(view: View, visibility: Boolean) {
 }
 
 @BindingAdapter("error_resource")
-fun bindErrorResource(view: View, state: BaseState) {
+fun bindErrorResource(view: View, state: BaseState?) {
     view.visibility = if (state is BaseState.OnError) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("success_resource")
-fun bindSuccessResource(view: View, state: BaseState) {
+fun bindSuccessResource(view: View, state: BaseState?) {
     view.visibility = if (state is BaseState.Success) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("loading_resource")
-fun bindLoadingResource(view: View, state: BaseState) {
+fun bindLoadingResource(view: View, state: BaseState?) {
     view.visibility = if (state is BaseState.Loading) View.VISIBLE else View.GONE
 }

@@ -11,4 +11,6 @@ interface AppRepository {
     fun getRxJavaLaunchDetails(flightNumber: Int):Single<Launch>
 
     fun getFlowLaunchesList(request: BaseListRequest): Flow<ArrayList<Launch>>
+
+    fun getFlowLaunchDetails(flightNumber: Int): Flow<Launch>
 }

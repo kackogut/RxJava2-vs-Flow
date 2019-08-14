@@ -2,6 +2,7 @@ package com.kacper.launchme.data.launch
 
 import androidx.recyclerview.widget.DiffUtil
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class Launch(
 
@@ -35,6 +36,7 @@ data class Launch(
             else STATUS_FAILURE
         } ?: STATUS_UPCOMING
 
+    fun getTimestamp() = Date().time.toString()
 
     companion object {
         fun getDiffCallback() =

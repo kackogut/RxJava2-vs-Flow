@@ -9,14 +9,20 @@ import retrofit2.http.QueryMap
 
 interface SpaceXService {
 
+    //RxJava methods
+
     @GET("launches")
     fun getLaunches(@QueryMap request: Map<String, Int>): Single<ArrayList<Launch>>
 
     @GET("launches/{FLIGHT_NUMBER}")
     fun getLaunchDetails(@Path("FLIGHT_NUMBER") flightNumber: Int): Single<Launch>
 
+    //Coroutines methods
+
     @GET("launches")
     suspend fun getFlowLaunches(@QueryMap request: Map<String, Int>): ArrayList<Launch>
 
+    @GET("launches/{FLIGHT_NUMBER}")
+    suspend fun getFlowLaunchDetails(@Path("FLIGHT_NUMBER") flightNumber: Int) : Launch
 
 }

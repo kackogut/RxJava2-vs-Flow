@@ -61,7 +61,7 @@
                         layout="@layout/layout_description_with_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:description="@{launchViewModel.currentLaunch.launchSite.nameLong}"
+                        app:description="@{launchViewModel.currentLaunch.getTimestamp()}"
                         app:label="@{@string/launch_site}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

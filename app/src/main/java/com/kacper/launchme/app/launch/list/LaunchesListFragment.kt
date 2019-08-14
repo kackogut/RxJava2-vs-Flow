@@ -9,12 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
-import com.kacper.launchme.R
 import com.kacper.launchme.app.launch.LaunchViewModel
 import com.kacper.launchme.databinding.FragmentLaunchListBinding
 import com.kacper.launchme.di.Injectable
-import com.kacper.launchme.utils.navigateWithTransition
 import javax.inject.Inject
 
 class LaunchesListFragment : Fragment(), Injectable {
@@ -45,7 +42,7 @@ class LaunchesListFragment : Fragment(), Injectable {
 
         launchListBinding.viewModel = launchViewModel
 
-        initAdatper(launchListBinding)
+        initAdapter(launchListBinding)
         initList()
         initViewModelListener()
 
@@ -60,9 +57,10 @@ class LaunchesListFragment : Fragment(), Injectable {
         })
     }
 
-    private fun initAdatper(launchListBinding: FragmentLaunchListBinding) {
+    private fun initAdapter(launchListBinding: FragmentLaunchListBinding) {
         launchesAdapter = LaunchesAdapter { launch ->
-            launchViewModel.getLaunchDetails(launch.flightNumber)
+            launchViewModel.getLaunchDetails(
+                launch.flightNumber)
         }
 
         launchListBinding.rvBaseLayout.adapter = launchesAdapter
@@ -73,7 +71,7 @@ class LaunchesListFragment : Fragment(), Injectable {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         launchViewModel.isFlowEnabled.removeOnPropertyChangedCallback(onDataSourceChangeCallback)
+        super.onDestroyView()
     }
 }
