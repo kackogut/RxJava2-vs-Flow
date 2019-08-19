@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="launchViewModel"
-            type="com.kacper.launchme.app.launch.LaunchViewModel"/>
+            name="launch"
+            type="com.kacper.launchme.data.launch.Launch"/>
     </data>
 
     <ScrollView
@@ -39,7 +39,7 @@
                         android:layout_height="@dimen/launch_image"
                         android:layout_margin="@dimen/base_margin_big"
                         android:contentDescription="@string/content_description_launch_image"
-                        app:image="@{launchViewModel.currentLaunch.links.missionPatch}"
+                        app:image="@{launch.links.missionPatch}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
@@ -53,15 +53,15 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/iv_launch_mission"
-                        app:status_color="@{launchViewModel.currentLaunch.getStatus()}"
-                        app:status_text="@{launchViewModel.currentLaunch.getStatus()}"/>
+                        app:status_color="@{launch.getStatus()}"
+                        app:status_text="@{launch.getStatus()}"/>
 
                     <include
                         android:id="@+id/layout_launch_site_location_name"
                         layout="@layout/layout_description_with_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:description="@{launchViewModel.currentLaunch.getTimestamp()}"
+                        app:description="@{launch.getTimestamp()}"
                         app:label="@{@string/launch_site}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +73,7 @@
                         layout="@layout/layout_description_with_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:description="@{launchViewModel.currentLaunch.rocket.name}"
+                        app:description="@{launch.rocket.name}"
                         app:label="@{@string/rocket_name}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +84,7 @@
                         layout="@layout/layout_description_with_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:description="@{launchViewModel.currentLaunch.rocket.type}"
+                        app:description="@{launch.rocket.type}"
                         app:label="@{@string/rocket_type}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +96,7 @@
                         layout="@layout/layout_description_with_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:description="@{launchViewModel.currentLaunch.missionName}"
+                        app:description="@{launch.missionName}"
                         app:label="@{@string/mission_name}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +108,7 @@
                         layout="@layout/layout_description_with_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:description="@{launchViewModel.currentLaunch.details}"
+                        app:description="@{launch.details}"
                         app:label="@{@string/details}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

@@ -16,8 +16,8 @@ import com.kacper.launchme.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class LaunchViewModel @Inject constructor(
@@ -29,6 +29,7 @@ class LaunchViewModel @Inject constructor(
 
     private val disposable = CompositeDisposable()
 
+    //Could be an observable field, but created as LiveData, to check if setValue works on Main Thread
     var currentLaunch = MutableLiveData<Launch?>()
 
     var state = ObservableField<BaseState>(BaseState.Loading)
@@ -62,7 +63,7 @@ class LaunchViewModel @Inject constructor(
     }
 
     private fun getFlowLaunchDetails(flightNumber: Int){
-        runBlocking {
+        CoroutineScope(Dispatchers.Main).launch{
             appRepository.getFlowLaunchDetails(flightNumber).collect {
                 currentLaunch.value = (it)
                 state.set(LaunchState.OnLaunchDetailsFetched)

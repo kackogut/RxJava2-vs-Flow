@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.Observable
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.kacper.launchme.app.launch.LaunchViewModel
@@ -36,15 +37,19 @@ class LaunchDetailsFragment : Fragment(), Injectable {
     ): View? {
         val launchDetailsBinding = FragmentLaunchDetailsBinding.inflate(inflater, container, false)
 
-        launchDetailsBinding.launchViewModel = launchViewModel
+        launchDetailsBinding.launch = launchViewModel.currentLaunch.value
 
-        initViewModelListener()
+        initViewModelListener(launchDetailsBinding)
 
         return launchDetailsBinding.root
     }
 
-    private fun initViewModelListener() {
+    private fun initViewModelListener(launchDetailsBinding : FragmentLaunchDetailsBinding) {
         launchViewModel.isFlowEnabled.addOnPropertyChangedCallback(onDataSourceChangeCallback)
+
+        launchViewModel.currentLaunch.observe(this, Observer {
+            launchDetailsBinding.launch = launchViewModel.currentLaunch.value
+        })
     }
 
     override fun onDestroyView() {
