@@ -16,8 +16,10 @@ import com.kacper.launchme.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LaunchViewModel @Inject constructor(
@@ -46,24 +48,24 @@ class LaunchViewModel @Inject constructor(
         ).build()
     }
 
-    fun refreshLaunchDetails(){
+    fun refreshLaunchDetails() {
         currentLaunch.value?.flightNumber?.let {
             getLaunchDetails(it)
         }
     }
 
-    fun getLaunchDetails(flightNumber : Int){
+    fun getLaunchDetails(flightNumber: Int) {
         state.set(BaseState.Loading)
 
-        if(isFlowEnabled.get()){
+        if (isFlowEnabled.get()) {
             getFlowLaunchDetails(flightNumber)
         } else {
             getRxJavaLaunchDetails(flightNumber)
         }
     }
 
-    private fun getFlowLaunchDetails(flightNumber: Int){
-        CoroutineScope(Dispatchers.Main).launch{
+    private fun getFlowLaunchDetails(flightNumber: Int) {
+        CoroutineScope(Dispatchers.Main).launch {
             appRepository.getFlowLaunchDetails(flightNumber).collect {
                 currentLaunch.value = (it)
                 state.set(LaunchState.OnLaunchDetailsFetched)
@@ -71,7 +73,7 @@ class LaunchViewModel @Inject constructor(
         }
     }
 
-    private fun getRxJavaLaunchDetails(flightNumber: Int){
+    private fun getRxJavaLaunchDetails(flightNumber: Int) {
         disposable.add(
             appRepository.getRxJavaLaunchDetails(flightNumber)
                 .subscribeOn(Schedulers.io())
@@ -79,7 +81,7 @@ class LaunchViewModel @Inject constructor(
                 .subscribe({
                     currentLaunch.value = (it)
                     state.set(LaunchState.OnLaunchDetailsFetched)
-                },{
+                }, {
                     state.set(BaseState.OnError)
                 })
         )

@@ -60,7 +60,8 @@ class LaunchesListFragment : Fragment(), Injectable {
     private fun initAdapter(launchListBinding: FragmentLaunchListBinding) {
         launchesAdapter = LaunchesAdapter { launch ->
             launchViewModel.getLaunchDetails(
-                launch.flightNumber)
+                launch.flightNumber
+            )
         }
 
         launchListBinding.rvBaseLayout.adapter = launchesAdapter

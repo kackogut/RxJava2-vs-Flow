@@ -6,6 +6,7 @@
     <string name="failure">Failure</string>
     <string name="upcoming">Upcoming</string>
 
+    <string name="download_timestamp">Data download timestamp</string>
     <string name="details">Details</string>
     <string name="launch_site">Launch site</string>
     <string name="rocket_name">Rocket name</string>

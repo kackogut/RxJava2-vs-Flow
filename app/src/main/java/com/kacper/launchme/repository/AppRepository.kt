@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface AppRepository {
     fun getRxJavaLaunchesList(request: BaseListRequest): Single<ArrayList<Launch>>
 
-    fun getRxJavaLaunchDetails(flightNumber: Int):Single<Launch>
+    fun getRxJavaLaunchDetails(flightNumber: Int): Single<Launch>
 
     fun getFlowLaunchesList(request: BaseListRequest): Flow<ArrayList<Launch>>
 

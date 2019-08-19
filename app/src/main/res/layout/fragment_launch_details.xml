@@ -62,7 +62,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:description="@{launch.getTimestamp()}"
-                        app:label="@{@string/launch_site}"
+                        app:label="@{@string/download_timestamp}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_launch_details_status"

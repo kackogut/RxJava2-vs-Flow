@@ -44,7 +44,7 @@ class LaunchDetailsFragment : Fragment(), Injectable {
         return launchDetailsBinding.root
     }
 
-    private fun initViewModelListener(launchDetailsBinding : FragmentLaunchDetailsBinding) {
+    private fun initViewModelListener(launchDetailsBinding: FragmentLaunchDetailsBinding) {
         launchViewModel.isFlowEnabled.addOnPropertyChangedCallback(onDataSourceChangeCallback)
 
         launchViewModel.currentLaunch.observe(this, Observer {

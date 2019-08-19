@@ -8,9 +8,9 @@ import com.kacper.launchme.data.list.BaseListRequest
 import com.kacper.launchme.repository.AppRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 import timber.log.Timber
 
 class LaunchesListFlowSource(

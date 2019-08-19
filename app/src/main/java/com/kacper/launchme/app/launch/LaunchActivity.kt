@@ -46,7 +46,7 @@ class LaunchActivity : AppCompatActivity(), HasSupportFragmentInjector {
                         val navController =
                             findNavController(this@LaunchActivity, R.id.nav_launch_fragment)
 
-                        if (navController.currentDestination?.label != LaunchesListFragment::class.java.simpleName){
+                        if (navController.currentDestination?.label != LaunchesListFragment::class.java.simpleName) {
 
                         } else {
 
