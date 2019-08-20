@@ -3,6 +3,8 @@ package com.kacper.launchme.app.launch.list
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
+import com.kacper.launchme.app.launch.list.flow.LaunchesListFlowSource
+import com.kacper.launchme.app.launch.list.rx.LaunchesListRxJavaSource
 import com.kacper.launchme.data.BaseState
 import com.kacper.launchme.data.launch.Launch
 import com.kacper.launchme.repository.AppRepository
@@ -11,20 +13,39 @@ import io.reactivex.disposables.CompositeDisposable
 class LaunchesListSourceFactory(
     private val compositeDisposable: CompositeDisposable,
     private val appRepository: AppRepository,
-    private val state: ObservableField<BaseState>
+    private val state: ObservableField<BaseState>,
+    var isFlowEnabled: Boolean
 ) : DataSource.Factory<Int, Launch>() {
 
-    private val launchListLiveData = MutableLiveData<LaunchesListSource>()
-    private var launchListSource: LaunchesListSource? = null
+    private val launchListLiveDataFlow = MutableLiveData<LaunchesListFlowSource>()
+    private var launchListFlowSource: LaunchesListFlowSource? = null
+
+    private val launchListLiveDataRxJava = MutableLiveData<LaunchesListRxJavaSource>()
+    private var launchListRxJavaSource: LaunchesListRxJavaSource? = null
 
     override fun create(): DataSource<Int, Launch> {
-        launchListSource =
-            LaunchesListSource(compositeDisposable, appRepository, state)
-        launchListLiveData.postValue(launchListSource)
-        return launchListSource!!
+        return if (isFlowEnabled) {
+
+            launchListFlowSource =
+                LaunchesListFlowSource(appRepository, state)
+            launchListLiveDataFlow.postValue(launchListFlowSource)
+            launchListFlowSource!!
+
+        } else {
+
+            launchListRxJavaSource =
+                LaunchesListRxJavaSource(
+                    compositeDisposable,
+                    appRepository,
+                    state
+                )
+            launchListLiveDataRxJava.postValue(launchListRxJavaSource)
+            launchListRxJavaSource!!
+
+        }
     }
 
     fun invalidate() {
-        launchListSource?.invalidate()
+        launchListRxJavaSource?.invalidate()
     }
 }

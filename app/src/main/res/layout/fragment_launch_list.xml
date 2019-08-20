@@ -10,7 +10,6 @@
             type="com.kacper.launchme.app.launch.LaunchViewModel"/>
     </data>
 
-
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -30,13 +29,5 @@
             tools:visibility="gone"
             />
 
-        <include
-            layout="@layout/layout_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:state="@{viewModel.state}"
-            tools:visibility="gone"
-            />
     </FrameLayout>
 </layout>

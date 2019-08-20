@@ -1,5 +1,6 @@
 package com.kacper.launchme.utils
 
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.kacper.launchme.R
@@ -14,3 +15,5 @@ fun NavController.navigateWithTransition(navigationID: Int) {
 
     navigate(navigationID, null, navOptions)
 }
+
+fun Fragment.requireActivity() = activity!!

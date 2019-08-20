@@ -2,46 +2,29 @@ package com.kacper.launchme.repository
 
 import com.kacper.launchme.api.SpaceXService
 import com.kacper.launchme.data.list.BaseListRequest
-import io.reactivex.Single
-import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.PublishSubject
-import java.util.concurrent.atomic.AtomicInteger
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class AppRepositoryImpl @Inject constructor(private val spaceXService: SpaceXService) :
     AppRepository {
 
-    private val workingStateSubject = BehaviorSubject.create<Boolean>()
-    private val dataChangeSubject = PublishSubject.create<Boolean>()
-    private val workingLockCount = AtomicInteger(0)
+    override fun getFlowLaunchesList(request: BaseListRequest) =
+        flow {
+            emit(spaceXService.getFlowLaunches(request.toMap()))
+        }
 
-    override fun getWorkingStateSubject(): BehaviorSubject<Boolean> {
-        return workingStateSubject
-    }
+    override fun getFlowLaunchDetails(flightNumber: Int) =
+        flow {
+            emit(spaceXService.getFlowLaunchDetails(flightNumber))
+        }
 
 
-    override fun getDataChangeSubject(): PublishSubject<Boolean> {
-        return dataChangeSubject
-    }
-
-    override fun getLaunchesList(request: BaseListRequest) =
+    override fun getRxJavaLaunchesList(request: BaseListRequest) =
         spaceXService.getLaunches(request.toMap())
-            .doOnSubscribe { incrementWorkingLock() }
-            .doFinally(this::decrementWorkingLock)
 
-    @Synchronized
-    private fun incrementWorkingLock() {
-        val previousCount = workingLockCount.getAndIncrement()
-        if (previousCount <= 0) {
-            workingStateSubject.onNext(true)
-        }
-    }
+    override fun getRxJavaLaunchDetails(flightNumber: Int) =
+        spaceXService.getLaunchDetails(flightNumber)
 
-    @Synchronized
-    private fun decrementWorkingLock() {
-        val count = workingLockCount.decrementAndGet()
-        if (count <= 0) {
-            workingStateSubject.onNext(false)
-        }
-    }
 }
+
+

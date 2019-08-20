@@ -14,7 +14,6 @@
             type="String"/>
     </data>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,10 +24,10 @@
             style="@style/TextViewMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/base_margin_medium"
-            android:layout_marginLeft="@dimen/base_margin_medium"
-            android:layout_marginTop="@dimen/base_margin_medium"
             android:layout_marginBottom="@dimen/base_margin_small"
+            android:layout_marginLeft="@dimen/base_margin_medium"
+            android:layout_marginStart="@dimen/base_margin_medium"
+            android:layout_marginTop="@dimen/base_margin_medium"
             android:text="@{label}"
             android:textStyle="bold"/>
 
@@ -36,8 +35,9 @@
             style="@style/TextViewMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/base_margin_medium"
             android:layout_marginLeft="@dimen/base_margin_medium"
+            android:layout_marginStart="@dimen/base_margin_medium"
             android:text="@{description}"/>
+
     </LinearLayout>
 </layout>
